@@ -1,8 +1,9 @@
-// App.jsx
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Selection from "./components/Selection";
 import QuestionsReponses from "./components/QuestionsReponses";
+import FullscreenComponent from "./components/FullscreenComponent"; // Importez le composant FullscreenComponent
+import LoserResultPage from './components/LoserResultPage.jsx';
 
 const App = () => {
   return (
@@ -21,6 +22,8 @@ const App = () => {
         <Routes>
           <Route path="/questions" element={<QuestionsReponses />} />
           <Route path="/" element={<Selection />} />
+          <Route path="/fullscreen" element={<FullscreenComponent />} /> {/* Route pour le composant FullscreenComponent */}
+          <Route path="/loser-result" element={<LoserResultPage />} /> {/* Route pour la page de résultat du loser */}
         </Routes>
       </div>
     </Router>
