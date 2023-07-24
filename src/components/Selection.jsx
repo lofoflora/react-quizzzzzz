@@ -1,6 +1,7 @@
 // Selection.jsx
 import React, { useState, useEffect } from "react";
 import TriviaApi from "../TriviaApi"; // Importez votre code de connexion à l'API
+import { motion } from "framer-motion";
 
 const Selection = () => {
   const [categories, setCategories] = useState([]);
@@ -45,34 +46,108 @@ const Selection = () => {
         console.error("Une erreur s'est produite lors de la récupération des questions :", error);
         alert("Une erreur s'est produite lors du démarrage du quiz.");
       }
-    } else {
-      alert("Veuillez sélectionner une catégorie et une difficulté pour commencer le quiz.");
     }
-  };
+
+};
+
+   const handleAmountChange = (event) => {
+    setSelectedAmount(event.target.value);
+  }
 
   return (
     <div>
-      <h2>Select Category</h2>
-      <select value={selectedCategory} onChange={handleCategoryChange}>
-        <option value="">Select a category</option>
-        {categories.map((category) => (
-          <option key={category.id} value={category.id}>
-            {category.name}
-          </option>
-        ))}
-      </select>
+      <motion.div
+        className="container mt-5"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div
+          className="row"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <div className="col">
+            <h4>Théme</h4>
+            <select
+              className="form-select"
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+            >
+              <option value="">Select a category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col">
+            <h4>Difficulté</h4>
+            <select
+              className="form-select"
+              value={selectedDifficulty}
+              onChange={handleDifficultyChange}
+            >
+              <option value="">Select a difficulty</option>
+              {difficulties.map((difficulty) => (
+                <option key={difficulty} value={difficulty}>
+                  {difficulty}
+                </option>
+              ))}
+            </select>
+          </div>
+        </motion.div>
 
-      <h2>Select Difficulty</h2>
-      <select value={selectedDifficulty} onChange={handleDifficultyChange}>
-        <option value="">Select a difficulty</option>
-        {difficulties.map((difficulty) => (
-          <option key={difficulty} value={difficulty}>
-            {difficulty}
-          </option>
-        ))}
-      </select>
+        <motion.div
+          className="row mt-3"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <div className="col">
+            <h4>Type</h4>
+            <select
+              className="form-select"
+              value={selectedType}
+              onChange={handleTypeChange}
+            >
+              <option value="multiple">Multiple Choice</option>
+              <option value="boolean">True / False</option>
+            </select>
+          </div>
+          <div className="col">
+            <h4>Nombre de questions</h4>
+            <select
+              className="form-select"
+              value={selectedAmount}
+              onChange={handleAmountChange}
+            >
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+        </motion.div>
 
       <button onClick={handleStartButtonClick}>Start Quiz</button>
+        <motion.div
+          className="mt-3"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <motion.button
+            className="btn btn-info"
+            onClick={handleStartButtonClick}
+            whileHover={{ scale: 1.2, rotate: 90 }}
+            whileTap={{ scale: 0.8, rotate: -90, borderRadius: "100%" }}
+          >
+            Start Quiz
+          </motion.button>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
