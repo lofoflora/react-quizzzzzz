@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import TriviaApi from '../TriviaApi';
 import Timer from './Timer';
 import EndScreenComponent from './EndScreenComponent';
+import LoserResultPage from './LoserResultPage';
+import { Link } from 'react-router-dom';
 
 function QuestionsReponses() {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [timeIsUp, setTimeIsUp] = useState(false); // État pour indiquer si le temps est écoulé
-  const [answeredQuestions, setAnsweredQuestions] = useState(0); // État pour suivre le nombre de questions répondues
-  const [showResults, setShowResults] = useState(false); // État pour afficher les résultats
+  const [timeIsUp, setTimeIsUp] = useState(false);
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
+  const [showResults, setShowResults] = useState(false);
+  const [timerExpired, setTimerExpired] = useState(false);
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -36,12 +39,9 @@ function QuestionsReponses() {
 
   const handleNextQuestion = () => {
     if (selectedAnswer !== null) {
-      // Vérifier si toutes les questions ont été répondues
       if (answeredQuestions === questions.length - 1) {
-        // Afficher les résultats si toutes les questions ont été répondues
         setShowResults(true);
       } else {
-        // Passer à la question suivante
         setSelectedAnswer(null);
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         setAnsweredQuestions((prevCount) => prevCount + 1);
@@ -49,33 +49,34 @@ function QuestionsReponses() {
     }
   };
 
-  // Gérer l'expiration du temps
   const handleTimeIsUp = () => {
     setTimeIsUp(true);
-    // Afficher EndScreenComponent lorsque le temps est écoulé
-    setShowResults(false);
+    if (answeredQuestions === questions.length - 1) {
+      setTimerExpired(true);
+    } else {
+      setShowResults(false);
+    }
   };
 
   return (
     <div>
       {!timeIsUp && !showResults && (
-        // Afficher le composant Timer avec 60 secondes et gérer l'expiration du temps
         <Timer seconds={60} onTimeIsUp={handleTimeIsUp} />
       )}
 
-      {timeIsUp && !showResults && <EndScreenComponent />}
+      {timeIsUp && !showResults && !timerExpired && <EndScreenComponent />}
+      {timerExpired && <LoserResultPage />}
 
-      {showResults && (
+      {showResults && !timerExpired && (
         <div>
-          {/* Afficher les résultats ici */}
           <h2>Résultats:</h2>
-          {/* Par exemple, afficher le nombre de questions correctement répondues */}
-          <p>Nombre de questions correctes : 5/10</p>
-          {/* Ajoutez plus d'informations sur les résultats ici */}
+          <p>Nombre de questions correctes : {answeredQuestions}/{questions.length}</p>
+          {/* Utilisation de la balise Link pour rediriger vers la page de résultats */}
+          <Link to="/page-de-resultats">Voir les résultats</Link>
         </div>
       )}
 
-      {!timeIsUp && !showResults && (
+      {!timeIsUp && !showResults && !timerExpired && (
         <div>
           <h2>{currentQuestion.question}</h2>
           <h3>Choisissez une réponse :</h3>
