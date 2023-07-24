@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import Selection from "./components/Selection";
+import Questions from "./components/Questions";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("");
+  const [selectedType, setSelectedType] = useState("multiple");
+  const [selectedAmount, setSelectedAmount] = useState("5");
+
+  const handleStartQuiz = (category, difficulty, type, amount) => {
+    setSelectedCategory(category);
+    setSelectedDifficulty(difficulty);
+    setSelectedType(type);
+    setSelectedAmount(amount);
+    setQuizStarted(true);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h1>Quiz App</h1>
+      {quizStarted ? (
+        <Questions
+          category={selectedCategory}
+          difficulty={selectedDifficulty}
+          type={selectedType}
+          amount={selectedAmount}
+        />
+      ) : (
+        <Selection onStartQuiz={handleStartQuiz} />
+      )}
+    </div>
+  );
+};
 
-export default App
+export default App;
