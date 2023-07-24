@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Selection from "./components/Selection";
 import Questions from "./components/Questions";
+import Score from "./components/Score";
 
 const App = () => {
   const [quizStarted, setQuizStarted] = useState(false);
@@ -30,6 +31,7 @@ const App = () => {
       ) : (
         <Selection onStartQuiz={handleStartQuiz} />
       )}
+      <Score value={15}/>
     </div>
   );
 };
