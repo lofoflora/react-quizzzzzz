@@ -47,12 +47,7 @@ const Selection = () => {
         alert("Une erreur s'est produite lors du démarrage du quiz.");
       }
     }
-
-};
-
-   const handleAmountChange = (event) => {
-    setSelectedAmount(event.target.value);
-  }
+  };
 
   return (
     <div>
@@ -100,38 +95,6 @@ const Selection = () => {
           </div>
         </motion.div>
 
-        <motion.div
-          className="row mt-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <div className="col">
-            <h4>Type</h4>
-            <select
-              className="form-select"
-              value={selectedType}
-              onChange={handleTypeChange}
-            >
-              <option value="multiple">Multiple Choice</option>
-              <option value="boolean">True / False</option>
-            </select>
-          </div>
-          <div className="col">
-            <h4>Nombre de questions</h4>
-            <select
-              className="form-select"
-              value={selectedAmount}
-              onChange={handleAmountChange}
-            >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-            </select>
-          </div>
-        </motion.div>
-
-      <button onClick={handleStartButtonClick}>Start Quiz</button>
         <motion.div
           className="mt-3"
           initial={{ opacity: 0, y: 20 }}
