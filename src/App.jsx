@@ -4,11 +4,16 @@ import Selection from "./components/Selection";
 import QuestionsReponses from "./components/QuestionsReponses";
 import FullscreenComponent from "./components/FullscreenComponent"; // Importez le composant FullscreenComponent
 import LoserResultPage from './components/LoserResultPage.jsx';
+import Header from "./components/Header";
+
 
 const App = () => {
   return (
+    
     <Router>
+    
       <div>
+      <Header/>
         <h1>Quiz App</h1>
 
         {/* Liens pour naviguer entre les pages */}

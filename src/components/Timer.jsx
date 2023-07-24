@@ -39,7 +39,7 @@ const Timer = ({ onTimeIsUp }) => {
         <img src={showLast10SecondsGif ? hourglassLast10SecGif : hourglassGif} alt="hourglass" />
       </div>
       <div className={`message ${messageVisible ? 'blink' : ''}`}>
-        {seconds > 0 ? `Ton ordinateur va exploser dans ${seconds} secondes` : 'Ton ordinateur va exploser !'}
+        {seconds > 0 ? `Temps restant pour sauver le monde ${seconds} secondes` : 'Ton ordinateur va exploser !'}
       </div>
     </div>
   );

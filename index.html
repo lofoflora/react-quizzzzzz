@@ -1,13 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Votre Titre de Page</title>
+  <style>
+    /* Styles pour afficher le widget de traduction en haut de la page */
+    #google_translate_element {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <!-- Ajoutez ici le code pour afficher le widget de traduction -->
+  <div id="google_translate_element"></div>
+
+  <div id="root"></div>
+</body>
+<!-- Chargement du script de l'API Google Translate -->
+<script type="module" src="/src/main.jsx"></script>
+<script type="text/javascript">
+  // Fonction pour initialiser le widget de traduction
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+  }
+  // Chargez le script de l'API Google Translate ici
+  (function() {
+    const script = document.createElement('script');
+    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    document.body.appendChild(script);
+  })();
+</script>
 </html>

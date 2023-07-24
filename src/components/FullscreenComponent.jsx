@@ -44,10 +44,11 @@ const FullscreenComponent = () => {
     <div className="fullscreen-container">
       {/* Insérer la vidéo ici */}
       {!videoEnded && (
-        <video autoPlay muted ref={videoRef} className="video-container">
-          <source src="src/assets/explosion.mp4" type="video/mp4" />
-          {/* Ajouter d'autres sources vidéo pour la compatibilité avec différents formats */}
-        </video>
+        <video autoPlay ref={videoRef} className="video-container">
+        <source src="src/assets/explosion.mp4" type="video/mp4" />
+        {/* Ajouter d'autres sources vidéo pour la compatibilité avec différents formats */}
+      </video>
+      
       )}
       {videoEnded && (
         <div className="video-overlay">
