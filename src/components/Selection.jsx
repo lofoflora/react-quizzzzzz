@@ -1,12 +1,12 @@
+// Selection.jsx
 import React, { useState, useEffect } from "react";
+import TriviaApi from "../TriviaApi"; // Importez votre code de connexion à l'API
 
-const Selection = ({ onStartQuiz }) => {
+const Selection = () => {
   const [categories, setCategories] = useState([]);
   const [difficulties, setDifficulties] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
-  const [selectedType, setSelectedType] = useState("multiple");
-  const [selectedAmount, setSelectedAmount] = useState("5");
 
   useEffect(() => {
     // Fetch categories
@@ -31,20 +31,22 @@ const Selection = ({ onStartQuiz }) => {
     setSelectedDifficulty(event.target.value);
   };
 
-  const handleTypeChange = (event) => {
-    setSelectedType(event.target.value);
-  };
+  const handleStartButtonClick = async () => {
+    // Validate that both category and difficulty have been selected
+    if (selectedCategory && selectedDifficulty) {
+      try {
+        // Récupérer les questions de l'API en utilisant votre code de connexion
+        const apiQuestions = await TriviaApi(10, selectedCategory, selectedDifficulty);
 
-  const handleAmountChange = (event) => {
-    setSelectedAmount(event.target.value);
-  };
-
-  const handleStartButtonClick = () => {
-    // Validate that all fields have been selected
-    if (selectedCategory && selectedDifficulty && selectedType && selectedAmount) {
-      onStartQuiz(selectedCategory, selectedDifficulty, selectedType, selectedAmount);
+        // Rediriger vers la page QuestionsReponses avec les sélections du quiz
+        // et les questions récupérées de l'API
+        window.location.href = "/questions";
+      } catch (error) {
+        console.error("Une erreur s'est produite lors de la récupération des questions :", error);
+        alert("Une erreur s'est produite lors du démarrage du quiz.");
+      }
     } else {
-      alert("Please select all fields to start the quiz.");
+      alert("Veuillez sélectionner une catégorie et une difficulté pour commencer le quiz.");
     }
   };
 
@@ -68,19 +70,6 @@ const Selection = ({ onStartQuiz }) => {
             {difficulty}
           </option>
         ))}
-      </select>
-
-      <h2>Select Type</h2>
-      <select value={selectedType} onChange={handleTypeChange}>
-        <option value="multiple">Multiple Choice</option>
-        <option value="boolean">True / False</option>
-      </select>
-
-      <h2>Select Amount of Questions</h2>
-      <select value={selectedAmount} onChange={handleAmountChange}>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
       </select>
 
       <button onClick={handleStartButtonClick}>Start Quiz</button>

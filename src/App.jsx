@@ -1,36 +1,29 @@
+// App.jsx
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Selection from "./components/Selection";
-import Questions from "./components/Questions";
+import QuestionsReponses from "./components/QuestionsReponses";
 
 const App = () => {
-  const [quizStarted, setQuizStarted] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedDifficulty, setSelectedDifficulty] = useState("");
-  const [selectedType, setSelectedType] = useState("multiple");
-  const [selectedAmount, setSelectedAmount] = useState("5");
-
-  const handleStartQuiz = (category, difficulty, type, amount) => {
-    setSelectedCategory(category);
-    setSelectedDifficulty(difficulty);
-    setSelectedType(type);
-    setSelectedAmount(amount);
-    setQuizStarted(true);
-  };
-
   return (
-    <div>
-      <h1>Quiz App</h1>
-      {quizStarted ? (
-        <Questions
-          category={selectedCategory}
-          difficulty={selectedDifficulty}
-          type={selectedType}
-          amount={selectedAmount}
-        />
-      ) : (
-        <Selection onStartQuiz={handleStartQuiz} />
-      )}
-    </div>
+    <Router>
+      <div>
+        <h1>Quiz App</h1>
+
+        {/* Liens pour naviguer entre les pages */}
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+        </ul>
+
+        {/* Définir les routes pour afficher les composants */}
+        <Routes>
+          <Route path="/questions" element={<QuestionsReponses />} />
+          <Route path="/" element={<Selection />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

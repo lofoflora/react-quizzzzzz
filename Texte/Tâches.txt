@@ -1,0 +1,32 @@
+À retenir :
+- Select -> Sujet et difficulté
+- Une question à la fois
+- Réponses multiples
+- Animation
+
+Critères d'évaluation :
+
+- Les questions et réponses du quiz sont-elles affichées de manière interactive ?
+- L'application permet-elle à l'utilisateur de choisir un sujet et une difficulté pour le quiz ?
+- L'application utilise-t-elle React pour la gestion de l'état ?
+- L'application utilise-t-elle Fetch pour récupérer les données de l'API Open Trivia Database ?
+- L'application intègre-t-elle une animation pour rendre l'interface plus attrayante ?
+- Le code est-il bien organisé et facile à comprendre ?
+
+Tâches :
+- Page d'accueil (1)
+	- Composant Titre
+	- Composant Connexion Api
+	- Composant Thémes
+	- Composant Diffculté
+	- Composant Bouton validation 1
+
+- Page des questions (2)
+	- Composant Titre
+	- Composant Questions
+	- Composant Reponses
+	- Composant Bouton validation 2
+
+- Page du résultat (3)
+	- Composant Titre
+	- Composant Score
