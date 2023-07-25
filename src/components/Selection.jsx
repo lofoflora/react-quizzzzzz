@@ -1,7 +1,8 @@
-// Selection.jsx
 import React, { useState, useEffect } from "react";
-import TriviaApi from "../TriviaApi"; // Importez votre code de connexion à l'API
+import TriviaApi from "../TriviaApi";
 import { motion } from "framer-motion";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const Selection = () => {
   const [categories, setCategories] = useState([]);
@@ -21,7 +22,7 @@ const Selection = () => {
       });
 
     // Set predefined difficulties
-    setDifficulties(["easy", "medium", "hard"]);
+    setDifficulties(["Facile", "Moyen", "Difficile"]);
   }, []);
 
   const handleCategoryChange = (event) => {
@@ -37,80 +38,81 @@ const Selection = () => {
     if (selectedCategory && selectedDifficulty) {
       try {
         // Récupérer les questions de l'API en utilisant votre code de connexion
-        const apiQuestions = await TriviaApi(10, selectedCategory, selectedDifficulty);
+        const apiQuestions = await TriviaApi(
+          10,
+          selectedCategory,
+          selectedDifficulty
+        );
 
         // Rediriger vers la page QuestionsReponses avec les sélections du quiz
         // et les questions récupérées de l'API
         window.location.href = "/questions";
       } catch (error) {
-        console.error("Une erreur s'est produite lors de la récupération des questions :", error);
+        console.error(
+          "Une erreur s'est produite lors de la récupération des questions :",
+          error
+        );
         alert("Une erreur s'est produite lors du démarrage du quiz.");
       }
     }
   };
 
   return (
-    <div>
-      <motion.div
-        className="container mt-5"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.div
-          className="row"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <div className="col">
-            <h4>Théme</h4>
-            <select
-              className="form-select"
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-            >
-              <option value="">Select a category</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="col">
-            <h4>Difficulté</h4>
-            <select
-              className="form-select"
-              value={selectedDifficulty}
-              onChange={handleDifficultyChange}
-            >
-              <option value="">Select a difficulty</option>
-              {difficulties.map((difficulty) => (
-                <option key={difficulty} value={difficulty}>
-                  {difficulty}
-                </option>
-              ))}
-            </select>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="mt-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <motion.button
-            className="btn btn-info"
-            onClick={handleStartButtonClick}
-            whileHover={{ scale: 1.2, rotate: 90 }}
-            whileTap={{ scale: 0.8, rotate: -90, borderRadius: "100%" }}
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        {" "}
+        {/* Centrer les colonnes */}
+        <div className="col-md-6">
+          <h4 className="text-center">Thème</h4> {/* Centrer le texte */}
+          <select
+            className="form-select form-select-lg mb-3"
+            style={{ backgroundColor: "white" }}
+            value={selectedCategory}
+            onChange={handleCategoryChange}
           >
-            Start Quiz
-          </motion.button>
-        </motion.div>
-      </motion.div>
+            <option value="" disabled>
+              Thème
+            </option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col-md-6">
+          <h4 className="text-center">Difficulté</h4> {/* Centrer le texte */}
+          <select
+            className="form-select form-select-lg mb-3"
+            style={{ backgroundColor: "white" }}
+            value={selectedDifficulty}
+            onChange={handleDifficultyChange}
+          >
+            <option value="" disabled>
+              Difficulté
+            </option>
+            {difficulties.map((difficulty) => (
+              <option key={difficulty} value={difficulty}>
+                {difficulty}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="mt-3 d-flex justify-content-center">
+        {" "}
+        {/* Centrer le bouton */}
+        <motion.button
+          className="btn btn-info btn-lg"
+          onClick={handleStartButtonClick}
+          whileHover={{ scale: 1.2, rotate: 90 }}
+          whileTap={{ scale: 0.8, rotate: -90, borderRadius: "100%" }}
+          style={{ color: 'white' }}
+        >
+          Start
+        </motion.button>
+      </div>
     </div>
   );
 };
